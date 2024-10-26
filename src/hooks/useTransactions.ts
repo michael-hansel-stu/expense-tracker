@@ -11,16 +11,23 @@ const useTransactions = () => {
     const getTransactions = async () => {
       try {
         setLoading(true);
-        const apiTransactions = await fetchTransactions();
-        const formattedTransactions = apiTransactions.map(
-          (transaction: TransactionApiResponse): Transaction => ({
-            id: transaction.id,
-            description: transaction.description,
-            amount: `Rp.${Intl.NumberFormat().format(transaction.amount)}`,
-            date: new Date(transaction.date).toLocaleDateString(),
-            type: transaction.type,
-          })
-        );
+        const apiResponse = await fetchTransactions();
+        console.log(apiResponse);
+        const apiTransactions = apiResponse ?? [];
+        if (!Array.isArray(apiTransactions)) {
+          throw new Error("Unexpected API response format");
+        }
+        const formattedTransactions = apiTransactions
+          ? apiTransactions.map(
+              (transaction: TransactionApiResponse): Transaction => ({
+                id: transaction.id,
+                description: transaction.description,
+                amount: `Rp.${Intl.NumberFormat().format(transaction.amount)}`,
+                date: new Date(transaction.date).toLocaleDateString(),
+                type: transaction.type,
+              })
+            )
+          : [];
 
         setTransactions(formattedTransactions);
       } catch (error: unknown) {

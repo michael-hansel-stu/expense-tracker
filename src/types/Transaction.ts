@@ -10,8 +10,8 @@ export type TransactionApiResponse = {
   id: number;
   description: string;
   amount: number;
-  date: string;
+  date: Date;
   type: string;
   userId: number;
-  createdAt: string;
+  createdAt: Date;
 };

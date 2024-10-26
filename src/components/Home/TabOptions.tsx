@@ -20,7 +20,7 @@ const TabOptions: React.FC<TabOptionsProps> = ({options, currentTab, onTabChange
             <li key={key} onClick={() => onTabChange(item.value)}>
               <p
                 className={clsx(
-                  "inline-block p-4 cursor-pointer",
+                  "inline-block px-4 py-2 cursor-pointer",
                   {
                     "text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500":
                       currentTab == item.value,
