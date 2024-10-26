@@ -14,7 +14,7 @@ export const fetchTransactions = async (): Promise<
       console.error("Axios error:", error.response?.data);
       throw new Error(
         `Failed to fetch transactions: ${
-          error.response?.data || "Unknown error"
+          error.response?.statusText || "Unknown error"
         }`
       );
     } else {
