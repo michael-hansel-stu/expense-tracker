@@ -24,7 +24,7 @@ export class TransactionService implements ITransactionService {
 
   async fetchTransactions(): Promise<TransactionApiResponse[]> {
     try {
-      const response = await axios.get(`${this.baseURL}/api/transactions`);
+      const response = await axios.get(`${this.baseURL}api/transactions`);
       return response.data;
     } catch (error: unknown) {
       handleAxiosError(error, "Failed to fetch transaction");
@@ -35,7 +35,7 @@ export class TransactionService implements ITransactionService {
   async fetchTransactionById(id: number): Promise<TransactionApiResponse> {
     try {
       const response = await axios.get<TransactionApiResponse>(
-        `${this.baseURL}/api/transactions/${id}`
+        `${this.baseURL}api/transactions/${id}`
       );
       return response.data;
     } catch (error: unknown) {
@@ -50,7 +50,7 @@ export class TransactionService implements ITransactionService {
     try {
       const normalizedData = this.normalizeData(formData);
       const response = await axios.post<TransactionApiResponse>(
-        `${this.baseURL}/api/transactions`,
+        `${this.baseURL}api/transactions`,
         normalizedData
       );
 
@@ -72,7 +72,7 @@ export class TransactionService implements ITransactionService {
 
       const normalizeData = this.normalizeData(formData);
       const response = await axios.put<TransactionApiResponse>(
-        `${this.baseURL}/api/transactions/${formData.id}`,
+        `${this.baseURL}api/transactions/${formData.id}`,
         normalizeData
       );
 
@@ -86,7 +86,7 @@ export class TransactionService implements ITransactionService {
   async deleteTransactionById(id: number): Promise<TransactionApiResponse> {
     try {
       const response = await axios.delete<TransactionApiResponse>(
-        `${this.baseURL}/api/transactions/${id}`
+        `${this.baseURL}api/transactions/${id}`
       );
       return response.data;
     } catch (error: unknown) {
