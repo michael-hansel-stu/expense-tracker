@@ -1,6 +1,7 @@
+"use client";
 import { useState, useEffect } from "react";
-import { fetchTransactions } from "@/services/TransactionService";
 import { Transaction, TransactionApiResponse } from "@/types/Transaction";
+import { TransactionService } from "@/services/TransactionService";
 
 const useTransactions = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -11,12 +12,9 @@ const useTransactions = () => {
     const getTransactions = async () => {
       try {
         setLoading(true);
-        const apiResponse = await fetchTransactions();
-        console.log(apiResponse);
-        const apiTransactions = apiResponse ?? [];
-        if (!Array.isArray(apiTransactions)) {
-          throw new Error("Unexpected API response format");
-        }
+        const transactionService = new TransactionService();
+        const apiResponse = await transactionService.fetchTransactions();
+        const apiTransactions = apiResponse;
         const formattedTransactions = apiTransactions
           ? apiTransactions.map(
               (transaction: TransactionApiResponse): Transaction => ({
