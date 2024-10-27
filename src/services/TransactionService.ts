@@ -20,12 +20,11 @@ const handleAxiosError = (error: unknown, defaultMessage: string): never => {
 
 export class TransactionService implements ITransactionService {
   private baseURL =
-    process.env.NEXT_PUBLIC_BASE_URL ||
-    "http://localhost:3000/api/transactions";
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000/";
 
   async fetchTransactions(): Promise<TransactionApiResponse[]> {
     try {
-      const response = await axios.get(`${this.baseURL}`);
+      const response = await axios.get(`${this.baseURL}/api/transactions`);
       return response.data;
     } catch (error: unknown) {
       handleAxiosError(error, "Failed to fetch transaction");
@@ -36,7 +35,7 @@ export class TransactionService implements ITransactionService {
   async fetchTransactionById(id: number): Promise<TransactionApiResponse> {
     try {
       const response = await axios.get<TransactionApiResponse>(
-        `${this.baseURL}/${id}`
+        `${this.baseURL}/api/transactions/${id}`
       );
       return response.data;
     } catch (error: unknown) {
@@ -51,7 +50,7 @@ export class TransactionService implements ITransactionService {
     try {
       const normalizedData = this.normalizeData(formData);
       const response = await axios.post<TransactionApiResponse>(
-        this.baseURL,
+        `${this.baseURL}/api/transactions`,
         normalizedData
       );
 
@@ -73,7 +72,7 @@ export class TransactionService implements ITransactionService {
 
       const normalizeData = this.normalizeData(formData);
       const response = await axios.put<TransactionApiResponse>(
-        `${this.baseURL}/${formData.id}`,
+        `${this.baseURL}/api/transactions/${formData.id}`,
         normalizeData
       );
 
@@ -87,7 +86,7 @@ export class TransactionService implements ITransactionService {
   async deleteTransactionById(id: number): Promise<TransactionApiResponse> {
     try {
       const response = await axios.delete<TransactionApiResponse>(
-        `${this.baseURL}/${id}`
+        `${this.baseURL}/api/transactions/${id}`
       );
       return response.data;
     } catch (error: unknown) {
