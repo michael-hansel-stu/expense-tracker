@@ -62,10 +62,10 @@ export async function GET(
 // PUT handler for updating a transaction by ID
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
   try {
-    const transactionId = Number(params.id);
+    const transactionId = Number((await params).id);
 
     // Validate if the ID is a valid number
     if (isNaN(transactionId)) {
